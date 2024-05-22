@@ -101,22 +101,22 @@ pub fn keyboard_movement(
 ) {
     for event in input.read() {
         match event.state {
-            ButtonState::Pressed => down_keys.insert(event.key_code.unwrap()),
-            ButtonState::Released => down_keys.remove(&event.key_code.unwrap()),
+            ButtonState::Pressed => down_keys.insert(event.key_code),
+            ButtonState::Released => down_keys.remove(&event.key_code),
         };
     }
     for mut velocity in query.iter_mut() {
         let mut new_velocity = Vec3::default();
-        if down_keys.contains(&KeyCode::Up) {
+        if down_keys.contains(&KeyCode::ArrowUp) {
             new_velocity.y += 200.0;
         }
-        if down_keys.contains(&KeyCode::Down) {
+        if down_keys.contains(&KeyCode::ArrowDown) {
             new_velocity.y -= 200.0;
         }
-        if down_keys.contains(&KeyCode::Right) {
+        if down_keys.contains(&KeyCode::ArrowRight) {
             new_velocity.x += 200.0;
         }
-        if down_keys.contains(&KeyCode::Left) {
+        if down_keys.contains(&KeyCode::ArrowLeft) {
             new_velocity.x -= 200.0;
         }
         velocity.linvel = new_velocity;
